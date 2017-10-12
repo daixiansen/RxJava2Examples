@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/RxJava2Examples.iml" filepath="$PROJECT_DIR$/RxJava2Examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Rxjava2andRetrofit/Rxjava2andRetrofit.iml" filepath="$PROJECT_DIR$/Rxjava2andRetrofit/Rxjava2andRetrofit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/retrofitsample/retrofitsample.iml" filepath="$PROJECT_DIR$/retrofitsample/retrofitsample.iml" />
+    </modules>
+  </component>
+</project>
