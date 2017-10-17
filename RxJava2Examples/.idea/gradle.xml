@@ -9,9 +9,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Rxjava2andRetrofit" />
+            <option value="$PROJECT_DIR$/Rxpremission2" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baselibrary" />
             <option value="$PROJECT_DIR$/retrofitsample" />
+            <option value="$PROJECT_DIR$/rxpremission2sample" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

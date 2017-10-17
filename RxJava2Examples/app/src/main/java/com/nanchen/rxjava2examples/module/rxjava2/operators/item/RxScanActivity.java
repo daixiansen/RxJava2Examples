@@ -33,6 +33,7 @@ public class RxScanActivity extends RxOperatorBaseActivity {
                 .scan(new BiFunction<Integer, Integer, Integer>() {
                     @Override
                     public Integer apply(@NonNull Integer integer, @NonNull Integer integer2) throws Exception {
+                        Log.e(TAG,"reduce : " + integer + " : " + integer2);
                         return integer + integer2;
                     }
                 }).subscribe(new Consumer<Integer>() {

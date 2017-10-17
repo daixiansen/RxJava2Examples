@@ -35,7 +35,7 @@ public class RxWindowActivity extends RxOperatorBaseActivity {
         mRxOperatorsText.append("window\n");
         Log.e(TAG, "window\n");
         Observable.interval(1, TimeUnit.SECONDS) // 间隔一秒发一次
-                .take(15) // 最多接收15个
+                .take(16) // 最多接收15个
                 .window(3, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

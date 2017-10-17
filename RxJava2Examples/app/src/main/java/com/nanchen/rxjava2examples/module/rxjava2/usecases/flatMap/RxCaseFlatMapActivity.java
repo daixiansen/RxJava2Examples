@@ -110,12 +110,12 @@ public class RxCaseFlatMapActivity extends RxOperatorBaseActivity {
                     @Override
                     public void accept(@NonNull RoomList roomList) throws Exception {
                         // 先根据获取食品列表的响应结果做一些操作
-                        Log.e(TAG, "accept: doOnNext :" + roomList.toString());
+                        Log.e(TAG, "accept: dDoOnNext :" + roomList.toString());
                         Log.e(TAG, "doOnNext" + "    " + Thread.currentThread().getName());
                         mRxOperatorsText.append("accept: doOnNext :" + roomList.toString() + "\n");
                     }
                 })
-//                .observeOn(Schedulers.io()) // 回到 io 线程去处理获取食品详情的请求
+                .observeOn(Schedulers.io()) // 回到 io 线程去处理获取食品详情的请求
                 .flatMap(new Function<RoomList, Observable<UserInfo>>() {
                     @Override
                     public Observable<UserInfo> apply(@NonNull RoomList roomList) throws Exception {
@@ -148,7 +148,7 @@ public class RxCaseFlatMapActivity extends RxOperatorBaseActivity {
 
                     @Override
                     public void onNext(@NonNull UserInfo userInfo) {
-                        Log.e(TAG, "flatMap" + "    " + Thread.currentThread().getName());
+                        Log.e(TAG, "onNext" + "    " + Thread.currentThread().getName());
                         Log.e(TAG, "subscribe onNext : success ：" + userInfo.toString());
                         mRxOperatorsText.append("accept: success ：" + userInfo.toString() + "\n");
                     }

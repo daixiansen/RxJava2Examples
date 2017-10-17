@@ -49,6 +49,7 @@ public class RxCaseIntervalActivity extends RxOperatorBaseActivity {
                         mRxOperatorsText.append("accept: 设置文本 ："+aLong +"\n");
                     }
                 });
+
     }
 
     /**

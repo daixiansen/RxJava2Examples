@@ -46,7 +46,9 @@ public class TranslateUpDownBehavior extends FloatingActionButton.Behavior {
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         if (((dyConsumed > 0 && dyUnconsumed == 0) || (dyConsumed == 0 && dyUnconsumed > 0)) && !isAnimating && child.getVisibility() == View.VISIBLE) {
-            if (listener != null) listener.onChange(true);
+            if (listener != null) {
+                listener.onChange(true);
+            }
             AnimHelper.translateDown(child, new MyViewPropertyAnimatorListener() {
                 @Override
                 public void onAnimationEnd(View view) {
@@ -55,7 +57,9 @@ public class TranslateUpDownBehavior extends FloatingActionButton.Behavior {
                 }
             });
         } else if ((dyConsumed < 0 && dyUnconsumed == 0) || (dyConsumed == 0 && dyUnconsumed < 0) && !isAnimating && child.getVisibility() == View.INVISIBLE) {
-            if (listener != null) listener.onChange(false);
+            if (listener != null) {
+                listener.onChange(false);
+            }
             child.setVisibility(View.VISIBLE);
             AnimHelper.translateUp(child, null);
         }

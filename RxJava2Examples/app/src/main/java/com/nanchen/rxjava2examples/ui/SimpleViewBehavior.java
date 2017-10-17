@@ -102,7 +102,9 @@ public class SimpleViewBehavior extends CoordinatorLayout.Behavior<View> {
             mDependTargetY = ((AppBarLayout) dependency).getTotalScrollRange();
         }
         // 背景颜色渐变
-        if (child.getBackground() instanceof ColorDrawable) mStartBackgroundColor = ((ColorDrawable) child.getBackground()).getColor();
+        if (child.getBackground() instanceof ColorDrawable) {
+            mStartBackgroundColor = ((ColorDrawable) child.getBackground()).getColor();
+        }
         // 自定义动画
         if (mAnimationId != 0) {
             mAnimation = AnimationUtils.loadAnimation(child.getContext(), mAnimationId);
@@ -128,7 +130,9 @@ public class SimpleViewBehavior extends CoordinatorLayout.Behavior<View> {
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
         // 该方法会在滑动的时候一直回调,但只需要初始化一次
-        if (!isPrepared) prepare(parent, child, dependency);
+        if (!isPrepared) {
+            prepare(parent, child, dependency);
+        }
         updateView(child, dependency);
         return false;
     }
@@ -150,7 +154,9 @@ public class SimpleViewBehavior extends CoordinatorLayout.Behavior<View> {
     @Override
     public boolean onLayoutChild(CoordinatorLayout parent, View child, int layoutDirection) {
         boolean bool = super.onLayoutChild(parent, child, layoutDirection);
-        if (isPrepared) updateView(child, parent.getDependencies(child).get(0));
+        if (isPrepared) {
+            updateView(child, parent.getDependencies(child).get(0));
+        }
         return bool;
     }
 
@@ -206,14 +212,20 @@ public class SimpleViewBehavior extends CoordinatorLayout.Behavior<View> {
             child.setTranslationX(newX);
             child.setTranslationY(newY);
             //透明度变化
-            if (targetAlpha != UNSPECIFIED_FLOAT) child.setAlpha(floatEvaluator(mStartAlpha, targetAlpha, percent));
+            if (targetAlpha != UNSPECIFIED_FLOAT) {
+                child.setAlpha(floatEvaluator(mStartAlpha, targetAlpha, percent));
+            }
             //背景渐变
             if (targetBackgroundColor != UNSPECIFIED_INT && mStartBackgroundColor != 0) {
                 child.setBackgroundColor(argbEvaluator(mStartBackgroundColor, targetBackgroundColor, percent));
             }
             //旋转动画
-            if (targetRotateX != UNSPECIFIED_FLOAT) child.setRotationX(floatEvaluator(mStartRotateX, targetRotateX, percent));
-            if (targetRotateY != UNSPECIFIED_FLOAT) child.setRotationY(floatEvaluator(mStartRotateY, targetRotateY, percent));
+            if (targetRotateX != UNSPECIFIED_FLOAT) {
+                child.setRotationX(floatEvaluator(mStartRotateX, targetRotateX, percent));
+            }
+            if (targetRotateY != UNSPECIFIED_FLOAT) {
+                child.setRotationY(floatEvaluator(mStartRotateY, targetRotateY, percent));
+            }
         } else {
             mAnimation.setStartTime(0);
             mAnimation.restrictDuration(100);

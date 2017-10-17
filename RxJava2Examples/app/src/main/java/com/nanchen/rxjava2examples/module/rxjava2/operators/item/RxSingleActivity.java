@@ -53,5 +53,6 @@ public class RxSingleActivity extends RxOperatorBaseActivity {
                 });
 
 
+
     }
 }
