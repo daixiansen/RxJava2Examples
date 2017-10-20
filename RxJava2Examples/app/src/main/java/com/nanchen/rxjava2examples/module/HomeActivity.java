@@ -21,6 +21,8 @@ import com.nanchen.rxjava2examples.util.ScreenUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 
 public class HomeActivity extends BaseActivity {
 
@@ -46,6 +48,14 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
 //        StatusBarUtil.setTranslucent(this);
+
+        Observable.create((ObservableOnSubscribe<Integer>) e -> {
+
+        }).subscribe(integer -> {
+
+        });
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4 以上版本
             // 设置 Toolbar 高度为 80dp，适配状态栏
             ViewGroup.LayoutParams layoutParams = mToolbarTitle.getLayoutParams();

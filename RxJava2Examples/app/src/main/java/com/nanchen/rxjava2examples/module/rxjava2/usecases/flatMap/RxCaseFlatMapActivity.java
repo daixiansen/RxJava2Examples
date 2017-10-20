@@ -6,11 +6,11 @@ import com.nanchen.rxjava2examples.module.rxjava2.operators.item.RxOperatorBaseA
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -91,55 +91,65 @@ public class RxCaseFlatMapActivity extends RxOperatorBaseActivity {
 //                });
 //
 //    }
+
+    /**
+     *  上游在io线程,下游在主线程
+     * @param <T>
+     * @return
+     */
+    private <T> ObservableTransformer<T, T> rxSchedulerHelper() {
+        return upstream -> upstream.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 下游切换回至io 线程
+     * @param <T>
+     * @return
+     */
+    private <T> ObservableTransformer<T, T> rxSchedulerHelper2() {
+        return upstream -> upstream
+                .observeOn(Schedulers.io());
+    }
+
+
+    /**
+     * 下游切换至 主线程
+     * @param <T>
+     * @return
+     */
+    private <T> ObservableTransformer<T, T> rxSchedulerHelper3() {
+        return upstream -> upstream
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    private <T> ObservableTransformer<T, UserInfo> handlerResult() {
+        return upstream -> upstream.flatMap(new Function<T, Observable<UserInfo>>() {
+            @Override
+            public Observable<UserInfo> apply(@NonNull T t) throws Exception {
+                Log.e(TAG, "handlerResult" + "    " + Thread.currentThread().getName());
+                return getObjectObservable();
+            }
+        });
+    }
+
+
     @Override
     protected void doSomething() {
-        Rx2AndroidNetworking.post(GET_URL)
-                .addQueryParameter("padapi", "coop-mobile-getlivelistnew.php")
-                .addBodyParameter("av", "2.6")
-                .addBodyParameter("encpass", "hwAlT-ecjR00sGDD8tpFtzk7cLVdw_z-MC_aurS5_p71BQAzDsWIWeETMEc6cjfYsry2ocGH8MU6siCTZZvgeMBKMhT6SvpCokbIMAiKBx7Uy1dJwlTLMuQCiiTqtWnTs-5OrGdr0lVvaO7thAK-Bg10007")
-                .addBodyParameter("logiuid", "66515829")
-                .addBodyParameter("p", "1")
-                .addBodyParameter("rate", "100")
-                .addBodyParameter("size", "20")
-                .addBodyParameter("type", "followList")
-                .build()
-                .getObjectObservable(RoomList.class) // 发起获取食品列表的请求，并解析到FootList
-                .subscribeOn(Schedulers.io())        // 在io线程进行网络请求
-                .observeOn(AndroidSchedulers.mainThread()) // 在主线程处理获取食品列表的请求结果
-                .doOnNext(new Consumer<RoomList>() {
-                    @Override
-                    public void accept(@NonNull RoomList roomList) throws Exception {
-                        // 先根据获取食品列表的响应结果做一些操作
-                        Log.e(TAG, "accept: dDoOnNext :" + roomList.toString());
-                        Log.e(TAG, "doOnNext" + "    " + Thread.currentThread().getName());
-                        mRxOperatorsText.append("accept: doOnNext :" + roomList.toString() + "\n");
-                    }
+        getObjectListObservable() // 发起获取食品列表的请求，并解析到FootList
+                .compose(rxSchedulerHelper())
+                .doOnNext(roomList -> {
+                    // 先根据获取食品列表的响应结果做一些操作
+                    Log.e(TAG, "accept: dDoOnNext :" + roomList.toString());
+                    Log.e(TAG, "doOnNext" + "    " + Thread.currentThread().getName());
+                    mRxOperatorsText.append("accept: doOnNext :" + roomList.toString() + "\n");
                 })
-                .observeOn(Schedulers.io()) // 回到 io 线程去处理获取食品详情的请求
-                .flatMap(new Function<RoomList, Observable<UserInfo>>() {
-                    @Override
-                    public Observable<UserInfo> apply(@NonNull RoomList roomList) throws Exception {
-
-                        Log.e(TAG, "flatMap" + "    " + Thread.currentThread().getName());
-
-                        if ("001".equals(roomList.getFlag())) {
-                            return Rx2AndroidNetworking.post(POST_URL)
-                                    .addQueryParameter("padapi", "coop-mobile-getUserInfo.php")
-                                    .addBodyParameter("av", "1.3")
-                                    .addBodyParameter("encpass", "hwAlT-ecjR00sGDD8tpFtzk7cLVdw_z-MC_aurS5_p71BQAzDsWIWeETMEc6cjfYsry2ocGH8MU6siCTZZvgeMBKMhT6SvpCokbIMAiKBx7Uy1dJwlTLMuQCiiTqtWnTs-5OrGdr0lVvaO7thAK-Bg10007")
-                                    .addBodyParameter("logiuid", "66515829")
-                                    .addBodyParameter("tuid", "66515829")
-                                    .build()
-                                    .getObjectObservable(UserInfo.class);
-//                            return null;
-                        }
-                        return null;
-
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(rxSchedulerHelper2())
+                .compose(handlerResult())
+                .compose(rxSchedulerHelper3())
                 .subscribe(new Observer<UserInfo>() {
-                    public Disposable disposable;
+                    Disposable disposable;
 
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
@@ -166,4 +176,30 @@ public class RxCaseFlatMapActivity extends RxOperatorBaseActivity {
                 });
 
     }
+
+    private Observable<RoomList> getObjectListObservable() {
+        return Rx2AndroidNetworking.post(GET_URL)
+                .addQueryParameter("padapi", "coop-mobile-getlivelistnew.php")
+                .addBodyParameter("av", "2.6")
+                .addBodyParameter("encpass", "hwAlT-ecjR00sGDD8tpFtzk7cLVdw_z-MC_aurS5_p71BQAzDsWIWeETMEc6cjfYsry2ocGH8MU6siCTZZvgeMBKMhT6SvpCokbIMAiKBx7Uy1dJwlTLMuQCiiTqtWnTs-5OrGdr0lVvaO7thAK-Bg10007")
+                .addBodyParameter("logiuid", "66515829")
+                .addBodyParameter("p", "1")
+                .addBodyParameter("rate", "100")
+                .addBodyParameter("size", "20")
+                .addBodyParameter("type", "followList")
+                .build()
+                .getObjectObservable(RoomList.class);
+    }
+
+    private Observable<UserInfo> getObjectObservable() {
+        return Rx2AndroidNetworking.post(POST_URL)
+                .addQueryParameter("padapi", "coop-mobile-getUserInfo.php")
+                .addBodyParameter("av", "1.3")
+                .addBodyParameter("encpass", "hwAlT-ecjR00sGDD8tpFtzk7cLVdw_z-MC_aurS5_p71BQAzDsWIWeETMEc6cjfYsry2ocGH8MU6siCTZZvgeMBKMhT6SvpCokbIMAiKBx7Uy1dJwlTLMuQCiiTqtWnTs-5OrGdr0lVvaO7thAK-Bg10007")
+                .addBodyParameter("logiuid", "66515829")
+                .addBodyParameter("tuid", "66515829")
+                .build()
+                .getObjectObservable(UserInfo.class);
+    }
+
 }

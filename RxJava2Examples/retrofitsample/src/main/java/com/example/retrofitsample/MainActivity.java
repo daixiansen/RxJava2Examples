@@ -11,12 +11,12 @@ import com.example.retrofitsample.api.MyObsever;
 import com.example.retrofitsample.bean.GithubBean;
 import com.example.retrofitsample.bean.MovieBean;
 import com.example.retrofitsample.bean.Translation;
+import com.example.retrofitsample.bean.VoiceBean;
 import com.example.retrofitsample.server.GetRequest_Interface;
 import com.example.retrofitsample.server.GitHubService;
 import com.example.retrofitsample.server.MovieService;
 import com.example.retrofitsample.server.PostRequest_Interface;
 import com.example.retrofitsample.util.StringConverterFactory;
-import com.orhanobut.logger.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -129,31 +130,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    }
 //                });
 
-        Observable<String> voiceBeanObservable = request.getCall3(stringMap);
+        Observable<Response<VoiceBean>> voiceBeanObservable = request.getCall4(stringMap);
         voiceBeanObservable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
+                .subscribe(new Observer<Response<VoiceBean>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        Logger.e("onSubscribe");
+
                     }
 
                     @Override
-                    public void onNext(@NonNull String voiceBean) {
-                        Logger.json(voiceBean);
+                    public void onNext(@NonNull Response<VoiceBean> voiceBeanResponse) {
+                        VoiceBean voiceBean = voiceBeanResponse.body();
+                        Headers headers = voiceBeanResponse.headers();
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Logger.e("onError -> " + e.getMessage());
+
                     }
 
                     @Override
                     public void onComplete() {
-                        Logger.e("onComplete");
+
                     }
                 });
     }
+
+
+
 
 
     public void postRequest() {

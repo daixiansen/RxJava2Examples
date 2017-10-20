@@ -4,6 +4,11 @@ import android.app.Application;
 
 import com.androidnetworking.AndroidNetworking;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 /**
  * Author: nanchen
  * Email: liushilin520@foxmail.com
@@ -16,5 +21,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AndroidNetworking.initialize(getApplicationContext());
+
+
     }
 }

@@ -17,7 +17,7 @@ public class ApiMethods {
     /**
      * 封装线程管理和订阅的过程
      */
-    public static void ApiSubscribe(Observable observable, Observer observer) {
+    public static void apisubscribe(Observable observable, Observer observer) {
         observable.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -32,7 +32,7 @@ public class ApiMethods {
      * @param count    获取长度
      */
     public static void getTopMovie(Observer<MovieBean> observer, int start, int count) {
-        ApiSubscribe(Api.getApiService().getTopMovie(start, count), observer);
+        apisubscribe(Api.getApiService().getTopMovie(start, count), observer);
     }
 
     /**
@@ -43,6 +43,6 @@ public class ApiMethods {
      * @param count    获取长度
      */
     public static void getTopMovie3(Observer<MovieBean> observer, int start, int count) {
-        ApiSubscribe(ApiStrategy.getApiService().getTopMovie(start,count), observer);
+        apisubscribe(ApiStrategy.getApiService().getTopMovie(start,count), observer);
     }
 }
