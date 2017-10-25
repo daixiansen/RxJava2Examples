@@ -1,1 +1,1 @@
-include ':app', ':baselibrary', ':retrofitsample', ':Rxpremission2', ':rxpremission2sample', 'Rxjava2andRetrofit'
+include ':app', ':baselibrary', ':retrofitsample', ':Rxpremission2', ':rxpremission2sample', ':retrofitlibrary', 'Rxjava2andRetrofit'
