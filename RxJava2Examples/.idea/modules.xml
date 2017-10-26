@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/Rxpremission2/Rxpremission2.iml" filepath="$PROJECT_DIR$/Rxpremission2/Rxpremission2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/baselibrary/baselibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dagger2demo/dagger2demo.iml" filepath="$PROJECT_DIR$/dagger2demo/dagger2demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/retrofitsample/retrofitsample.iml" filepath="$PROJECT_DIR$/retrofitsample/retrofitsample.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxpremission2sample/rxpremission2sample.iml" filepath="$PROJECT_DIR$/rxpremission2sample/rxpremission2sample.iml" />
     </modules>

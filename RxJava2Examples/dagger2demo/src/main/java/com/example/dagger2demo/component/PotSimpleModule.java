@@ -1,8 +1,10 @@
 package com.example.dagger2demo.component;
 
 import com.example.dagger2demo.MainActivity;
+import com.example.dagger2demo.bean.Pot;
 
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * @Function
@@ -19,9 +21,8 @@ public class PotSimpleModule {
         this.activity = activity;
     }
 
-//
-//    @Provides
-//    public Pot getPot(){
-//        return new Pot();
-//    }
+    @Provides
+    public Pot getPot() {
+        return new Pot("hello world!!!");
+    }
 }

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.dagger2demo.bean.Pot;
 import com.example.dagger2demo.component.DaggerPotComponet;
+import com.example.dagger2demo.component.PotSimpleModule;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import javax.inject.Inject;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        DaggerPotComponet.create().inject(this);
+        DaggerPotComponet.builder().potSimpleModule(new PotSimpleModule(this)).build().inject(this);
 
         RxView.clicks(btInject).subscribe(new Consumer<Object>() {
             @Override

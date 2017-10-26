@@ -14,7 +14,7 @@ import com.example.retrofitsample.bean.Translation;
 import com.example.retrofitsample.bean.VoiceBean;
 import com.example.retrofitsample.server.GetRequest_Interface;
 import com.example.retrofitsample.server.GitHubService;
-import com.example.retrofitsample.server.MovieService;
+import com.example.retrofitsample.server.MovieApis;
 import com.example.retrofitsample.server.PostRequest_Interface;
 import com.example.retrofitsample.util.StringConverterFactory;
 
@@ -303,13 +303,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void rxjavaRequest() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MovieService.BASE_URL)
+                .baseUrl(MovieApis.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        MovieService movieService = retrofit.create(MovieService.class);
+        MovieApis movieApis = retrofit.create(MovieApis.class);
 
-        movieService.getTopMovie(0, 10)
+        movieApis.getTopMovie(0, 10)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MovieBean>() {
@@ -341,12 +341,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void rxjavaRequest2() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MovieService.BASE_URL)
+                .baseUrl(MovieApis.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        MovieService movieService = retrofit.create(MovieService.class);
-        movieService.getTopMovieString(0, 10)
+        MovieApis movieApis = retrofit.create(MovieApis.class);
+        movieApis.getTopMovieString(0, 10)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {

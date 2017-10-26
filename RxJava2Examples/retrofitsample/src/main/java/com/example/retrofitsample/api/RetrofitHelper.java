@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.example.retrofitsample.MyApplication;
-import com.example.retrofitsample.server.MovieService;
+import com.example.retrofitsample.server.MovieApis;
 import com.example.retrofitsample.util.HttpLogger;
 import com.example.retrofitsample.util.NetWorkUtils;
 
@@ -24,35 +24,35 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
+ * @author daixiansen
  * @Function Retrofit配置
  * @Data 2017/10/11
- * @Author daixiansen
  */
 
-public class ApiStrategy {
+public class RetrofitHelper {
     public static String baseUrl = "https://api.douban.com/v2/movie/";
     //读超时长，单位：毫秒
     public static final int READ_TIME_OUT = 7676;
     //连接时长，单位：毫秒
     public static final int CONNECT_TIME_OUT = 7676;
 
-    public static final String TAG = ApiStrategy.class.getSimpleName();
+    public static final String TAG = RetrofitHelper.class.getSimpleName();
 
 
-    public static MovieService apiService;
+    public static MovieApis apiService;
 
-    public static MovieService getApiService() {
+    public static MovieApis getApiService() {
         if (apiService == null) {
             synchronized (Api.class) {
                 if (apiService == null) {
-                    new ApiStrategy();
+                    new RetrofitHelper();
                 }
             }
         }
         return apiService;
     }
 
-    private ApiStrategy() {
+    private RetrofitHelper() {
         // HttpLoggingInterceptor.Logger.DEFAULT
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLogger());
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -72,7 +72,7 @@ public class ApiStrategy {
                 Request build = request.newBuilder()
                         // TODO: 2017/10/11 这里可以添加请求头信息
 //                        .addHeader("Content-Type", "application/json")//设置允许请求json数据
-                        .addHeader("User-Agent","hello google!!!")
+                        .addHeader("User-Agent", "hello google!!!")
 //                        .url(httpUrl)  // 可添加固定参数
                         .build();
                 return chain.proceed(build);
@@ -93,11 +93,12 @@ public class ApiStrategy {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())//请求的结果转为实体类
+                //请求的结果转为实体类
+                .addConverterFactory(GsonConverterFactory.create())
                 //适配RxJava2.0,RxJava1.x则为RxJavaCallAdapterFactory.create()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        apiService = retrofit.create(MovieService.class);
+        apiService = retrofit.create(MovieApis.class);
     }
 
 

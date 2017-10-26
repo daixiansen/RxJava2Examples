@@ -43,6 +43,6 @@ public class ApiMethods {
      * @param count    获取长度
      */
     public static void getTopMovie3(Observer<MovieBean> observer, int start, int count) {
-        apisubscribe(ApiStrategy.getApiService().getTopMovie(start,count), observer);
+        apisubscribe(RetrofitHelper.getApiService().getTopMovie(start,count), observer);
     }
 }

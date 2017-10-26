@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * Created by 戴先森 on 2017/10/10.
  */
 
-public interface MovieService {
+public interface MovieApis {
 
     // https://api.douban.com/v2/movie/top250?start=0&count=10
 
