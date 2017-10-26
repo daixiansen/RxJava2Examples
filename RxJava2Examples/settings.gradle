@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 include ':app', ':baselibrary', ':retrofitsample', ':Rxpremission2', ':rxpremission2sample', ':dagger2demo', 'Rxjava2andRetrofit'
+=======
+include ':app', ':baselibrary', ':retrofitsample', ':Rxpremission2', ':rxpremission2sample', ':retrofitlibrary', 'Rxjava2andRetrofit'
+>>>>>>> 3e497273eeb682bd8561317c58aaa8d1f6e3d3ae
