@@ -12,11 +12,8 @@
             <option value="$PROJECT_DIR$/Rxpremission2" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baselibrary" />
-<<<<<<< HEAD
             <option value="$PROJECT_DIR$/dagger2demo" />
-=======
             <option value="$PROJECT_DIR$/retrofitlibrary" />
->>>>>>> 3e497273eeb682bd8561317c58aaa8d1f6e3d3ae
             <option value="$PROJECT_DIR$/retrofitsample" />
             <option value="$PROJECT_DIR$/rxpremission2sample" />
           </set>

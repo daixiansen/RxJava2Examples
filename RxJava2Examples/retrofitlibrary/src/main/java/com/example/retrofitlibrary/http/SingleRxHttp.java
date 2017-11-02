@@ -143,7 +143,7 @@ public class SingleRxHttp {
 
         if (!TextUtils.isEmpty(baseUrl)) {
             singleRetrofitBuilder.baseUrl(baseUrl);
-        }
+    }
         return singleRetrofitBuilder;
     }
 

@@ -1,5 +1,6 @@
 package com.example.retrofitsample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.example.retrofitsample.bean.GithubBean;
 import com.example.retrofitsample.bean.MovieBean;
 import com.example.retrofitsample.bean.Translation;
 import com.example.retrofitsample.bean.VoiceBean;
+import com.example.retrofitsample.mvp.ScondActivity;
 import com.example.retrofitsample.server.GetRequest_Interface;
 import com.example.retrofitsample.server.GitHubService;
 import com.example.retrofitsample.server.MovieApis;
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btpostrequst.setOnClickListener(this);
         btgetrequst.setOnClickListener(this);
         bt_rxjava_requst.setOnClickListener(this);
+        findViewById(R.id.bt_second).setOnClickListener(this);
         findViewById(R.id.bt_github_requst).setOnClickListener(this);
     }
 
@@ -213,6 +216,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_github_requst:
                 githubRequst();
+                break;
+            case R.id.bt_second:
+//                ScondActivity
+
+                Intent intent = new Intent(this, ScondActivity.class);
+                startActivity(intent);
+                break;
+            default:
                 break;
         }
     }
