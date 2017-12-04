@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt_rxjava_requst.setOnClickListener(this);
         findViewById(R.id.bt_second).setOnClickListener(this);
         findViewById(R.id.bt_github_requst).setOnClickListener(this);
+        findViewById(R.id.bt_three).setOnClickListener(this);
     }
 
 
@@ -222,6 +223,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Intent intent = new Intent(this, ScondActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.bt_three:
+                RetryActivity.startActivity(this);
                 break;
             default:
                 break;
